@@ -1,4 +1,4 @@
-[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](license.md) [![Haxelib Version](https://img.shields.io/github/tag/openfl/actuate.svg?style=flat&label=haxelib)](http://lib.haxe.org/p/hxeasylog)
+[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](license.md) [![Haxelib Version](https://img.shields.io/github/release/thesheeep/hxeasylog.svg?style=flat&label=haxelib)](http://lib.haxe.org/p/hxeasylog)
 
 # easylog
 
