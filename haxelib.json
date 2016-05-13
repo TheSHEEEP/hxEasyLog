@@ -4,7 +4,8 @@
   "license": "MIT",
   "tags": ["logging","logs","log","debug","easylog","files"],
   "description": "Easy to use logging tool that allows different logging levels as well as logging to different files.",
-  "version": "0.5.0",
+  "version": "1.0.0",
+  "classpath": "/",
   "releasenote": "First release - already very usable, though.",
   "contributors": ["Jan 'TheSHEEEP' Drabner"],
   "dependencies": {
