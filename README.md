@@ -3,8 +3,10 @@
 # easylog
 
 Easy to use logging tool that allows different logging levels as well as logging to different files.  
-Obviously, logging to files will only work on platforms allowing that to begin with.  
-This lib is meant mostly for desktop & mobile platforms, not web ones.
+
+Obviously, logging to files will only work on platforms allowing that to begin with (cpp, neko, php as this is using haxe's own sys.io.File).  
+Easylog **does** work on other platforms as well - only file operations are disabled, then.
+
 
 ## How To Use
 
@@ -16,6 +18,22 @@ import easylog.EasyLogger;
 var myLogger : EasyLogger = new EasyLogger("app_[logType].log");
 myLogger.log(EasyLogger.Error, "Uh oh!");
 myLogger.log("CustomLogType", "Custom log types are allowed, too!");
+```
+
+
+### Message Layout
+
+Log messages will print the date, the class, function and line they were called at - and of course the message itself.  
+The format is the following:
+```
+[YYYY-MM-DD HH:MM:SS] ClassName.FunctionName:LineNumber - LogType
+    Lines of the message
+	Preceded by "    " for readability
+
+Example:
+[2016-05-13 11:45:33] MyClass.main:36 - Error
+    The logged message
+    Another line
 ```
 
 
@@ -40,6 +58,8 @@ When you log to multiple files, each log type will be written to its own file. T
 // This will create log files named MyLog_Error.log, MyLog_Warning.log, etc.
 var myLogger : EasyLogger = new EasyLogger("../../logs/MyLog_[logType].log");
 ```
+
+Note that the full name of the type will be placed in the fill name. Thus, be careful about using spaces and special characters here.
 
 
 ### Logging To No File

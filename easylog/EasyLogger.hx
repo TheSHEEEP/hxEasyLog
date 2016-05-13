@@ -1,5 +1,6 @@
 package easylog;
 
+import haxe.PosInfos;
 import haxe.ds.StringMap;
 
 /**
@@ -8,6 +9,7 @@ import haxe.ds.StringMap;
  */
 class EasyLogger
 {
+	// Some default logging levels
 	public static inline var	Error	   	: String = "Error";
 	public static inline var	Warning		: String = "Warning";
 	public static inline var	Info		: String = "Info";
@@ -20,8 +22,12 @@ class EasyLogger
 	// If the EasyLogger will also write logs to the console
 	public var consoleOutput(default, set) : Bool = false;
 
-	private var logs	: StringMap<InternalLogger> = null; //< Has all the internal logs that do the actual writing
+	private var _logs			: StringMap<InternalLogger> = null; //< Has all the internal logs that do the actual writing
+	private var _logFileString 	: String = "";						//< The string used as the filepath for all logs
+	private var _singleLogFile	: Bool = false;						//< If there is only a single log file
 
+
+	//------------------------------------------------------------------------------------------------------------------
 	/**
 	 * Constructor.
 	 * @param  {String} p_fileName  The name of the files the logs will be saved to.
@@ -31,9 +37,50 @@ class EasyLogger
 	 */
 	public function new(p_fileName : String)
 	{
-		logs = new StringMap<InternalLogger>();
+		_logs = new StringMap<InternalLogger>();
 
-		// TODO: create logs
+		_logFileString = p_fileName;
+		if (_logFileString != "" && _logFileString.indexOf("[logType]") == -1)
+		{
+			_singleLogFile = true;
+		}
+	}
+
+	//------------------------------------------------------------------------------------------------------------------
+	/**
+	 * Logs the passed messages.
+	 * @param  {String} p_type    The type/category of the message.
+	 * @param  {String} p_message The message to log.
+	 * @return {Void}
+	 */
+	public function log(p_type : String, p_message : String, ?p_posInfo : PosInfos) : Void
+	{
+		// Make sure there is an internal logger for that type
+		if (!_logs.exists(p_type))
+		{
+			var filePath : String = _logFileString;
+			filePath = StringTools.replace(filePath, "[logType]", p_type);
+
+			// If we are in single logfile mode, only the first log inherits the append setting, all others must apped
+			if (_singleLogFile)
+			{
+				if (Lambda.count(_logs) == 0)
+				{
+					_logs.set(p_type, new InternalLogger(filePath, p_type, append, consoleOutput));
+				}
+				else
+				{
+					_logs.set(p_type, new InternalLogger(filePath, p_type, true, consoleOutput));
+				}
+			}
+			else
+			{
+				_logs.set(p_type, new InternalLogger(filePath, p_type, append, consoleOutput));
+			}
+		}
+
+		// Log!
+		_logs.get(p_type).log(p_message, p_posInfo);
 	}
 
 	/**
@@ -55,7 +102,10 @@ class EasyLogger
 	{
 		consoleOutput = p_output;
 
-		// TODO: Apply to each InternalLogger
+		for (logger in _logs)
+		{
+			logger.consoleOutput = consoleOutput;
+		}
 
 		return consoleOutput;
 	}
