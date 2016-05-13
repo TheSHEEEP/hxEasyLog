@@ -7,7 +7,7 @@
   "version": "1.0.0",
   "classpath": "/",
   "releasenote": "First release - already very usable, though.",
-  "contributors": ["Jan 'TheSHEEEP' Drabner"],
+  "contributors": ["TheSHEEEP", "Jan Drabner"],
   "dependencies": {
   }
 }
