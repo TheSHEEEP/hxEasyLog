@@ -2,7 +2,7 @@
 
 # easylog
 
-Easy to use logging tool that allows different logging levels as well as logging to different files.  
+Easy to use logging tool that allows different logging types as well as logging to different files.  
 
 Obviously, logging to files will only work on platforms allowing that to begin with (cpp, neko, php as this is using haxe's own sys.io.File).  
 Easylog **does** work on other platforms as well - only file operations are disabled, then.
