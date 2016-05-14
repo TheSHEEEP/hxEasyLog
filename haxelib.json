@@ -3,7 +3,7 @@
   "url" : "https://github.com/thesheeep/hxeasylog/",
   "license": "MIT",
   "tags": ["logging","logs","log","debug","easylog","files"],
-  "description": "Easy to use logging tool that allows different logging levels as well as logging to different files.",
+  "description": "Easy to use logging tool that allows different logging types as well as logging to one, multiple or no files (and to console).",
   "version": "1.0.1",
   "classpath": "/",
   "releasenote": "1.0.1 - the path to the log file(s) is now created before trying to open the file.",
