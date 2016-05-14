@@ -3,6 +3,7 @@ package easylog;
 #if (cpp || neko || php)
 	import sys.io.File;
 	import sys.io.FileOutput;
+	import sys.FileSystem;
 #end
 import haxe.PosInfos;
 
@@ -38,6 +39,15 @@ class InternalLogger
 		#if (cpp || neko || php)
 			if (p_filePath != "")
 			{
+				// Make sure that the path exists
+				if (p_filePath.indexOf("/") != -1)
+				{
+					var lastIndex : Int = p_filePath.lastIndexOf("/");
+					var path : String = p_filePath.substr(0, lastIndex);
+					FileSystem.createDirectory(path);
+				}
+
+				// Open the file
 				_file = p_append ? File.append(p_filePath, false) : File.write(p_filePath, false);
 			}
 		#end
